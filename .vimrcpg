@@ -1,0 +1,22 @@
+\set QUIET 1
+\pset null '¤'
+
+-- Customize prompts
+\set PROMPT1 '%M:%[%033[1;31m%]%>%[%033[0m%] %n@%/%R%#%x '
+\set PROMPT2 '%M %n@%/%R %# '
+
+\pset border 1
+\pset format wrapped
+\pset linestyle unicode
+
+
+-- Show how long each query takes to execute
+\timing
+
+-- Use best available output format
+\x auto
+\set VERBOSITY verbose
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+\set COMP_KEYWORD_CASE upper
+\unset QUIET
