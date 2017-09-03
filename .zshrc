@@ -61,7 +61,7 @@ export KEYTIMEOUT=1
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode aws archlinux ssh-agent systemd docker gpg-agent github postgres )
+plugins=(git vi-mode aws archlinux ssh-agent systemd docker gpg-agent github postgres wd )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -121,3 +121,4 @@ alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cdcera="cd $GOPATH/src/github.com/ceraorg/ceraordre"
 alias cera="$GOPATH/src/github.com/ceraorg/ceraordre/scripts/cera.sh"
+alias chromium="chromium & disown"
