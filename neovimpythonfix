@@ -1,0 +1,11 @@
+Python for neovim:
+https://www.archlinux.org/packages/extra/any/python-pip/
+
+pip2 install --user neovim
+pip3 install --user neovim
+
+Og så:
+
+pip install --upgrade neovim
+
+Hvorefter man kan køre UpdateRemotePlugins

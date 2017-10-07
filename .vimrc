@@ -240,19 +240,19 @@ filetype plugin indent on
 au BufRead /tmp/psql.edit.* set syntax=sql
 "}}}
 " Zoom / Restore window. ------------ {{{
-function! s:ZoomToggle() abort
-    if exists('t:zoomed') && t:zoomed
-        execute t:zoom_winrestcmd
-        let t:zoomed = 0
-    else
-        let t:zoom_winrestcmd = winrestcmd()
-        resize
-        vertical resize
-        let t:zoomed = 1
-    endif
-endfunction
-command! ZoomToggle call s:ZoomToggle()
-nnoremap <silent> <C-A> :ZoomToggle<CR>
+"function! s:ZoomToggle() abort
+    "if exists('t:zoomed') && t:zoomed
+        "execute t:zoom_winrestcmd
+        "let t:zoomed = 0
+    "else
+        "let t:zoom_winrestcmd = winrestcmd()
+        "resize
+        "vertical resize
+        "let t:zoomed = 1
+    "endif
+"endfunction
+"command! ZoomToggle call s:ZoomToggle()
+"nnoremap <silent> <C-A> :ZoomToggle<CR>
 "}}}
 if has('nvim')
 "neo-vim specific ------------- {{{
@@ -320,7 +320,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'vim-scripts/nginx.vim'
     Plug 'maxbrunsfeld/vim-yankstack'
     Plug 'tpope/vim-surround'
-    "Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
     Plug 'easymotion/vim-easymotion'
     Plug 'rkitover/vimpager'
     Plug 'ryanoasis/vim-devicons'
@@ -352,7 +352,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
     "Automatically closes HTML tag once you finish typing it with >. It is also smart enough to not autoclose tags when in a comment,
     "when they are self-closing, or when they have already been closed.
-    Plug 'amirh/HTML-AutoCloseTag'
+    "Plug 'amirh/HTML-AutoCloseTag'
 
     "Allows us to explore the file tree, open files and directories,
     "bookmarks,toggle hidden files, it remembers cursor position within files - so
