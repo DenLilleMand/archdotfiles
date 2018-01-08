@@ -24,6 +24,7 @@ sudo wpa_supplicant -i wlp3s0 -cconfig /etc/wpa_supplicant/wpa_supplicant.conf
 ```
 
 It might be running with success in the authentication, if it is not a success you will want to make sure that 
-you're executing it with "sudo" because the ap scan might need sudo privileges to scan.
+you're executing it with "sudo" because the ap scan might need sudo privileges to scan. Another reason 
+might be if the 
 
 
