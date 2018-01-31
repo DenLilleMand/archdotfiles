@@ -25,7 +25,8 @@ font pango:hack 12
 # font, it doesn’t scale on retina/hidpi displays.
 
 
-set $mod Mod4
+set $mod Mod1
+#set $mod Mod4
 
 
 # use these keys for focus, movement, and resize directions when reaching for
