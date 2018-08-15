@@ -40,7 +40,7 @@ set $right l
 #floating_modifier Mod4
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding "10%" -opacity "80" -bw 0 -bc "$base01" -bg "$base02" -fg "$base07" -hlbg "$base05" -columns 2 -font "Hack 12" -hlfg "#9575cd"
 
@@ -137,7 +137,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # assigning applications to specific workspaces
-assign[class="Termite"] $workspace1
+assign[class="Alacritty"] $workspace1
 assign[class="PHPStorm"] $workspace2
 assign[class="Chromium"] $workspace3
 assign[class="vlc"] $workspace5
@@ -222,7 +222,7 @@ popup_during_fullscreen smart
 #
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id nitrogen --restore
-exec termite
+exec alacritty
 exec chromium
 #exec vlc
 exec compton -f
