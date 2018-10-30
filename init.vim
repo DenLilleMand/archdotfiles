@@ -5,14 +5,13 @@
 "right now.
 "License: MIT
 "}}}
-" settings before#vundle -------------------- {{{
-
-"if this wasn't on, we would run in vi-compatible mode.
 set nocompatible
 set encoding=utf8
-
-"}}}
 set rtp+=$GOROOT/misc/vim
+
+" dont show the builtin mode when using airline
+set noshowmode
+
 filetype on
 filetype indent on
 filetype plugin indent on
@@ -39,9 +38,10 @@ set shiftwidth=4
 "we're at like 1 it would indent 3.
 set smartindent
 
-"setting the syntax on.
-syntax on
-syntax enable
+"setting the syntax
+"syntax on
+syntax off
+"syntax enable
 
 " Turn on line numbering. Turn it off with 'set nonu'
 set nu
@@ -66,10 +66,6 @@ augroup END
 "so what happens if we do jsx, or xlsx etc. some of the new
 "file types? then i guess vim will use the postfix if it doesn't
 "exist in their dictionary
-augroup filetype_fs_and_fsx
-    autocmd!
-    autocmd FileType fsharp set tabstop=2|set shiftwidth=2|set expandtab
-augroup END
 augroup filetype_js
   autocmd!
   autocmd FileType javascript :inoreabbrev <buffer> _author
@@ -97,6 +93,9 @@ augroup filetype_js
     \<cr>}
     \<cr>}
 augroup END
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
+
 "https://github.com/majutsushi/tagbar/blob/master/doc/tagbar.txt#L808:21
 "If you want to open it only if you're opening Vim with a supported file/files use this instead:
 "autocmd VimEnter * nested :call tagbar#autoopen(1)
@@ -162,6 +161,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 "NERDTreeTabs on console vim startup
 "mapping ctrl n to boot NERDtree
 noremap <C-n> :NERDTreeToggle<CR>
+"noremap <C-n> :Explore<CR>
 
 "Makes sure that NERDTree closes down aswell, whenever we do wq on the last
 "open buffer.
@@ -217,22 +217,20 @@ let g:nerdtree_tabs_autofind=0
 "that, usually fuzzy search will find everything, especially with regex. which
 "is obviously a problem
 let g:NERDTreeChDirMode       = 2
-
-
 " }}}
 "Airline settings and mappings ----------------------- {{{
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='tomorrow'
+let g:airline_theme='minimalist'
 "}}}
 "Solarized/Color settings -------------------- {{{
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set termguicolors
-set background=light
-colorscheme solarized
+set background=dark
+colorscheme evening
 "}}}
 " Vim-latex ------------------- {{{
 "In some cases it will detect a file with the 'tex' suffix as plaintex, to
@@ -280,48 +278,7 @@ let g:python_host_prog = '/usr/bin/python2.7'
 "YAML----------------------_{{{
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
-" More nerdtree stuff ------------- {{{
-" NERDTress File highlighting
-"function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- "exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- "exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-"endfunction
-
-"call NERDTreeHighlightFile('go', 'green', 'none', 'green', '#151515')
-"call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-"call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-"call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-"call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-"call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-"call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-"call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-"call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-"let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
-"let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-
-"I tried to change the nerdtree setup, so that it made the gopher icon for
-"golang files into that blue color.
-let g:NERDTreeLimitedSyntax = 1
-"let g:NERDTreeFileExtensionHighlightFullName = 1
-"let g:NERDTreeExactMatchHighlightFullName = 1
-"let g:NERDTreePatternMatchHighlightFullName = 1
-"let s:gopher_blue = '#6AD7E5'
-"let g:NERDTreeSyntaxEnabledExtensions = ['go']
-"let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-"let g:NERDTreeExtensionHighlightColor['go'] = s:gopher_blue " sets the color of css files to blue
-
-"}}}
 "Gopher stuff ------- {{{
-"Attempt at overriding the gopher icon with another icon, i would like to put
-"in a real gopher instead of the other one.
-"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go'] = 'ƛ'
 "deoplete(for auto-completion in nvim ------------ {{{
 let g:deoplete#enable_at_startup=1
 "}}}
@@ -342,7 +299,6 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'jodosha/vim-godebug'
 
     "general
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'fatih/vim-go'
     Plug 'nsf/gocode', { 'rtp': 'nvim', 'do':'~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
     Plug 'powerman/vim-plugin-AnsiEsc'
@@ -365,7 +321,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tpope/vim-fugitive'
     "Plug 'easymotion/vim-easymotion'
     Plug 'rkitover/vimpager'
-    Plug 'ryanoasis/vim-devicons'
+    "Plug 'ryanoasis/vim-devicons'
     "Plug 'kshenoy/vim-signature'
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
@@ -408,10 +364,6 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "bookmarks,toggle hidden files, it remembers cursor position within files - so
     "we can close and reopen and just continue. link to best docs:    http://usevim.com/2012/07/18/nerdtree/
     Plug 'scrooloose/nerdtree'
-    Plug 'fsharp/vim-fsharp', {
-	  \ 'for': 'fsharp',
-	  \ 'do':  'make fsautocomplete',
-	  \}
     "Nerdtree and tabs painlessly in vim. Will make sure that
     "its only 1 nerdtree being open all the time, it can be closed in all
     "tabs/open in all tabs, can be toggled with :NERDTreeTabsToggle
@@ -474,7 +426,7 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_structs = 1
 let g:go_echo_command_info = 1
 let g:go_gocode_autobuild = 1
-let g:go_auto_sameids = 1
+"let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
 
 if !executable('ctags')
@@ -680,22 +632,22 @@ endfunction
 
 
 tnoremap <Esc> <C-\><C-n>
-let g:terminal_color_0  = '#2e3436'
-let g:terminal_color_1  = '#cc0000'
-let g:terminal_color_2  = '#4e9a06'
-let g:terminal_color_3  = '#c4a000'
-let g:terminal_color_4  = '#3465a4'
-let g:terminal_color_5  = '#75507b'
-let g:terminal_color_6  = '#0b939b'
-let g:terminal_color_7  = '#d3d7cf'
-let g:terminal_color_8  = '#555753'
-let g:terminal_color_9  = '#ef2929'
-let g:terminal_color_10 = '#8ae234'
-let g:terminal_color_11 = '#fce94f'
-let g:terminal_color_12 = '#729fcf'
-let g:terminal_color_13 = '#ad7fa8'
-let g:terminal_color_14 = '#00f5e9'
-let g:terminal_color_15 = '#eeeeec'
+"let g:terminal_color_0  = '#2e3436'
+"let g:terminal_color_1  = '#cc0000'
+"let g:terminal_color_2  = '#4e9a06'
+"let g:terminal_color_3  = '#c4a000'
+"let g:terminal_color_4  = '#3465a4'
+"let g:terminal_color_5  = '#75507b'
+"let g:terminal_color_6  = '#0b939b'
+"let g:terminal_color_7  = '#d3d7cf'
+"let g:terminal_color_8  = '#555753'
+"let g:terminal_color_9  = '#ef2929'
+"let g:terminal_color_10 = '#8ae234'
+"let g:terminal_color_11 = '#fce94f'
+"let g:terminal_color_12 = '#729fcf'
+"let g:terminal_color_13 = '#ad7fa8'
+"let g:terminal_color_14 = '#00f5e9'
+"let g:terminal_color_15 = '#eeeeec'
 set shell=/bin/zsh
 "command! -nargs=* T split | terminal <args>
 "command! -nargs=* VT vsplit | terminal <args>
@@ -707,3 +659,4 @@ nnoremap <leader>ts :vsplit term://zsh<cr>
 endif
 
 
+syntax off
