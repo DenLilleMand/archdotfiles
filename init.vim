@@ -124,7 +124,7 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 "delete trailing white space:
 nnoremap <leader>dws :%s/\s\+$//e<cr>
 
-nnoremap <leader>pb :execute "vsplit " . bufname("#")<cr>
+"nnoremap <leader>pb :execute "vsplit " . bufname("#")<cr>
 let mapleader="\\"
 
 nnoremap <leader>s :/\v
@@ -154,7 +154,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC <cr>
 "whenever we make a mapping, we have to quit vim, and enter again,
 "to make that easier we're going to map our :source and give it the .vimrc
 "variable as parameter, so each time we do it, we compile our .vimrc.
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>sv :source /home/denlillemand/.config/nvim/init.vim<cr>
 " }}}
 "Nerdtree settings and mappings ------------------- {{{
 "NERDTtree= Tabs configuration.
@@ -275,6 +275,20 @@ let g:deoplete#source#clang#clang_header = '/usr/lib/clang/4.0.1/lib/linux/libcl
 "}}}
 let g:python_host_prog = '/usr/bin/python2.7'
 "let g:python3_host_prog = '/usr/bin/python3.6'
+map <leader>l :split<cr><leader>d
+" Omnifunc plugin -------------{{{
+" Ctrl-Space for completions. Heck Yeah!
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+        \ "" :
+        \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+        \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+        \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
+
+" Move up and down in autocomplete with <c-j> and <c-k>
+inoremap <expr> <C-J> ("\<C-N>")
+inoremap <expr> <C-K> ("\<C-P>")
+"}}}
 "YAML----------------------_{{{
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
@@ -297,6 +311,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tweekmonster/nvimdev.nvim'
     Plug 'jodosha/vim-godebug'
+    Plug 'rhysd/vim-grammarous'
 
     "general
     Plug 'fatih/vim-go'
@@ -343,6 +358,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "Latex plugin for university
     Plug 'lervag/vimtex'
     Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
     "Solarized theme, the most popular vim theme.
     Plug 'altercation/vim-colors-solarized'
@@ -654,8 +670,21 @@ set shell=/bin/zsh
 nnoremap <leader>ts :vsplit term://zsh<cr>
 
 "}}}
+" UltiSnips -----------------{{{
+"let g:UltiSnipsSnippetDirectories += ['~/.config/snippets']
+let g:UltiSnipsSnippetsDir='home/denlillemand/.config/snippets'
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+"let g:UltiSnipsListSnippets="<c-l>"
+
 "}}}
-"""}}}
+"}}}
 endif
 
 
