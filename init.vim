@@ -671,8 +671,18 @@ nnoremap <leader>ts :vsplit term://zsh<cr>
 
 "}}}
 " UltiSnips -----------------{{{
-"let g:UltiSnipsSnippetDirectories += ['~/.config/snippets']
-let g:UltiSnipsSnippetsDir='home/denlillemand/.config/snippets'
+
+"I thouth the following was required, but it
+"doesn't seem to work
+"let g:UltiSnipsSnippetsDir=$HOME.'.config/nvim/mysnips'
+
+" This is the default value i am just overwriting
+" with the default. I made my own snippets work with kind
+" of a hack because i just made a folder myself called
+" UltiSnips which it then looks inside. Trying to add e.g.
+" MySnips did not help even though i added it inside of the
+" rtp
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
