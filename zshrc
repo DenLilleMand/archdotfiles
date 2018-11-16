@@ -142,3 +142,9 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+
+echo "Remember:\n"
+echo "use ff, errt, :, fl, i, v, c, fum, fun, for, inf, terf, terr \n" 
+echo "use ctrl+b, ctrl+w"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

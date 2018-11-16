@@ -11,6 +11,26 @@ set rtp+=$GOROOT/misc/vim
 
 " dont show the builtin mode when using airline
 set noshowmode
+" swap files is kind of annoying if you want several
+" terminals open in the same project
+set noswapfile
+set autowrite " Automatically write before :next, :make etc
+set splitright               " Split vertical windows right to the current windows
+set splitbelow               " Split horizontal windows below to the current windows
+set nobackup " not sure what is being backed up tbh
+
+set autoread " When opening a buffer from multiple terminals i want them to update when saving one
+au FocusGained * :checktime
+
+set ignorecase  " make search ignore case
+
+
+" Better split switching
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 
 filetype on
 filetype indent on
@@ -341,6 +361,10 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
 
+    " fzf
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
     "python
     Plug 'zchee/deoplete-jedi'
     Plug 'fisadev/vim-isort'
@@ -497,22 +521,24 @@ endfunction
 call s:SetTagbar()
 
 " Error and warning signs.
-let g:ale_sign_error = '⤫'
+let g:ale_sign_error = '⚠'
 let g:ale_sign_warning = '⚠'
 " Enable integration with airline.
-"let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 let g:ale_lint_on_enter = 1
-nnoremap <leader>ad :ALENext<CR>
-nnoremap <leader>as :ALEPrevious<CR>
+nnoremap <leader>an :ALENext<CR>
+nnoremap <leader>ab :ALEPrevious<CR>
+" Python ----------------- {{{
+
+let g:jedi#completions_enabled = 0
+
 let g:ale_python_flake8_args = '-m flake8'
-
-
-
 let g:flake8_error_marker='EE'     " set error marker to 'EE'
 let g:flake8_warning_marker='WW'   " set warning marker to 'WW'
 let g:flake8_show_in_gutter=1  " show
 let g:flake8_show_in_file=1  " show
+"}}}
 
 "Help mappings:
 "Go mappings(maybe i should move them into filetype specific, but then again
@@ -526,11 +552,12 @@ nnoremap <leader>i :GoInstall<cr>
 nnoremap <leader>gr :GoReferrers<cr>
 nnoremap <leader>gc :GoCallees<cr>
 nnoremap <leader>gi :GoImplements<cr>
-nnoremap <leader>gd :GoDecls<cr>
+nnoremap <leader>gde :GoDecls<cr>
 nnoremap <leader>gdd :GoDeclsDir<cr>
 nnoremap <leader>o :GoDefPop<cr>
 nnoremap <leader>a :GoAlternate<cr>
 nnoremap <leader>tf :GoTestFunc<cr>
+nnoremap <leader>gd :GoDoc<cr>
 "}}}
 "GoCode configuration --------------- {{{
 "GoCode is configured through json somewhere at ~/.config/gocode
@@ -685,8 +712,8 @@ nnoremap <leader>ts :vsplit term://zsh<cr>
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-w>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -694,8 +721,48 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:UltiSnipsListSnippets="<c-l>"
 
 "}}}
+" junegunn/fzf with RipGrep ----------- {{{
+" My own mapping:
+nnoremap <leader>rg :Rg<cr>
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+"}}}
+
 "}}}
 endif
-
-
 syntax off
