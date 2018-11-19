@@ -12,7 +12,7 @@
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 exec "setxkbmap -option caps:super"
-font pango:hack 12
+# font pango:hack 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -137,7 +137,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # assigning applications to specific workspaces
-assign[class="Alacritty"] $workspace1
+assign[class="Xterm"] $workspace1
 assign[class="PHPStorm"] $workspace2
 assign[class="Chromium"] $workspace3
 assign[class="vlc"] $workspace5
