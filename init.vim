@@ -31,10 +31,38 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" SwapText script ---------------- {{{
+" https://www.vim.org/scripts/script.php?script_id=4971
+"{Visual}<Leader>x       Swap the visual selection with the just deleted text.
+"<Leader>x{motion}       Swap the characters covered by {motion} with the just "                        deleted text.
+"[count]<Leader>xx       Swap the current [count] line(s) with the just deleted
+"			 text.
+"[count]<Leader>X        Swap the characters under the cursor until the end of
+"  			 the line and [count]-1 more lines with the just
+" 			 deleted text.
+" }}}
 
+
+" Mappings for the "camelcase" script ----- {{{
+" https://www.vim.org/scripts/script.php?script_id=1905
+
+nmap c,w c,e 
+
+runtime plugged/camelcasemotion.vim 
+omap i,w i,e 
+xmap i,w i,e 
+
+" To avoid losing the (rarely used) , mapping (which repeats latest f, t, F or 
+" T in opposite direction), we can remap it to ,,
+nnoremap ,, , 
+xnoremap ,, , 
+onoremap ,, , 
+"}}}
+" Turn all of the normal filetype settings on ------- {{{
 filetype on
 filetype indent on
 filetype plugin indent on
+"}}}
 " Basic Settings -------------------------------- {{{
 "If this was set to off, the plugins wouldnt be able to do indenting based on
 "file type, which is a pretty  big deal i guess? im not sure if some of the
