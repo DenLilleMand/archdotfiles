@@ -438,6 +438,13 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "When we close a file, nerdtree will close with it, so no more hanging.
     ""https://github.com/jistr/vim-nerdtree-tabs
     Plug  'jistr/vim-nerdtree-tabs'
+
+    " typescript required plugins
+    " https://github.com/mhartington/nvim-typescript
+    Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+    Plug 'Shougo/denite.nvim'
+
 call plug#end()
 " }}}
 "some neovim mappings for yanking and pasting ------------ {{{

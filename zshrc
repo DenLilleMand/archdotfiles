@@ -147,4 +147,6 @@ echo "Remember:\n"
 echo "use ff, errt, :, fl, i, v, c, fum, fun, for, inf, terf, terr \n" 
 echo "use ctrl+b, ctrl+w"
 
+export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config-omnio.yml
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
