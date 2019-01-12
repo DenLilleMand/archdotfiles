@@ -5,10 +5,10 @@
 "right now.
 "License: MIT
 "}}}
+" normal options -------------- {{{
 set nocompatible
 set encoding=utf8
 set rtp+=$GOROOT/misc/vim
-
 " dont show the builtin mode when using airline
 set noshowmode
 " swap files is kind of annoying if you want several
@@ -18,19 +18,24 @@ set autowrite " Automatically write before :next, :make etc
 set splitright               " Split vertical windows right to the current windows
 set splitbelow               " Split horizontal windows below to the current windows
 set nobackup " not sure what is being backed up tbh
-
 set autoread " When opening a buffer from multiple terminals i want them to update when saving one
 au FocusGained * :checktime
-
 set ignorecase  " make search ignore case
+"}}}
+" Making sure lines is 80 columns ------------- {{{
+set colorcolumn=80
+highlight ColorColumn ctermbg=52
 
-
-" Better split switching
+"This will make filestyle to highlight tails of lines that are longer than 80
+"characters
+set textwidth=80
+"}}}
+" Better split switching --------- {{{
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
+"}}}
 " SwapText script ---------------- {{{
 " https://www.vim.org/scripts/script.php?script_id=4971
 "{Visual}<Leader>x       Swap the visual selection with the just deleted text.
@@ -41,8 +46,6 @@ map <C-l> <C-W>l
 "  			 the line and [count]-1 more lines with the just
 " 			 deleted text.
 " }}}
-
-
 " Mappings for the "camelcase" script ----- {{{
 " https://www.vim.org/scripts/script.php?script_id=1905
 
@@ -87,7 +90,6 @@ set shiftwidth=4
 set smartindent
 
 "setting the syntax
-"syntax on
 syntax off
 "syntax enable
 
@@ -210,6 +212,7 @@ nnoremap <leader>sv :source /home/denlillemand/.config/nvim/init.vim<cr>
 "mapping ctrl n to boot NERDtree
 noremap <C-n> :NERDTreeToggle<CR>
 "noremap <C-n> :Explore<CR>
+let g:NERDTreeNodeDelimiter = "\u00a0"
 
 "Makes sure that NERDTree closes down aswell, whenever we do wq on the last
 "open buffer.
@@ -307,8 +310,8 @@ au BufRead /tmp/psql.edit.* set syntax=sql
 " Cursor line --------------{{{
 set cursorline
 "}}}
-if has('nvim')
 "neo-vim specific ------------- {{{
+if has('nvim')
 "Cursor ---------------------{{{
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
@@ -358,7 +361,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tbastos/vim-lua'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tweekmonster/nvimdev.nvim'
-    Plug 'jodosha/vim-godebug'
+    "Plug 'jodosha/vim-godebug'
     Plug 'rhysd/vim-grammarous'
 
     "general
@@ -384,7 +387,6 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tpope/vim-fugitive'
     "Plug 'easymotion/vim-easymotion'
     Plug 'rkitover/vimpager'
-    "Plug 'ryanoasis/vim-devicons'
     "Plug 'kshenoy/vim-signature'
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
@@ -432,12 +434,6 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "bookmarks,toggle hidden files, it remembers cursor position within files - so
     "we can close and reopen and just continue. link to best docs:    http://usevim.com/2012/07/18/nerdtree/
     Plug 'scrooloose/nerdtree'
-    "Nerdtree and tabs painlessly in vim. Will make sure that
-    "its only 1 nerdtree being open all the time, it can be closed in all
-    "tabs/open in all tabs, can be toggled with :NERDTreeTabsToggle
-    "When we close a file, nerdtree will close with it, so no more hanging.
-    ""https://github.com/jistr/vim-nerdtree-tabs
-    Plug  'jistr/vim-nerdtree-tabs'
 
     " typescript required plugins
     " https://github.com/mhartington/nvim-typescript
@@ -445,6 +441,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
     Plug 'Shougo/denite.nvim'
 
+    Plug 'farmergreg/vim-lastplace'
 call plug#end()
 " }}}
 "some neovim mappings for yanking and pasting ------------ {{{
@@ -562,6 +559,7 @@ let g:ale_sign_warning = '⚠'
 let g:airline#extensions#ale#enabled = 1
 
 let g:ale_lint_on_enter = 1
+let g:ale_open_list = 1
 nnoremap <leader>an :ALENext<CR>
 nnoremap <leader>ab :ALEPrevious<CR>
 " Python ----------------- {{{
@@ -797,10 +795,16 @@ let g:fzf_colors =
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 "}}}
+" lastplace ------------{{{
+let g:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
+let g:lastplace_ignore_buftype = "quickfix,nofile,help"
+let g:lastplace_open_folds = 0
 
 "}}}
 endif
+"}}}
+" turn off the syntax --------- {{{
 syntax off
-
+" what was this?
 packadd vimball
-
+"}}}
