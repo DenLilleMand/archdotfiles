@@ -1,4 +1,4 @@
-"author info -----------------------------{{{
+"Author info -----------------------------{{{
 "Author:DenLilleMand
 "Creation Date: 1st of january,  2015
 "Description: A lot of the most popular plugins, mainly golang focused
@@ -212,6 +212,8 @@ nnoremap <leader>sv :source /home/denlillemand/.config/nvim/init.vim<cr>
 "mapping ctrl n to boot NERDtree
 noremap <C-n> :NERDTreeToggle<CR>
 "noremap <C-n> :Explore<CR>
+
+" Fix a bug where the node looks weird
 let g:NERDTreeNodeDelimiter = "\u00a0"
 
 "Makes sure that NERDTree closes down aswell, whenever we do wq on the last
