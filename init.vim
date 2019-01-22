@@ -756,9 +756,17 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:UltiSnipsListSnippets="<c-l>"
 
 "}}}
-" junegunn/fzf with RipGrep ----------- {{{
+" junegunn/fzf with RipGrep and tags ----------- {{{
+
 " My own mapping:
+" Trigger a fuzzy/regex searcher
 nnoremap <leader>rg :Rg<cr>
+nnoremap <leader>rf :Rg --files<cr>
+
+" Trigger searching through tags
+" so finding functions, classes, definitions etc.
+" is much faster
+nnoremap <leader>t :Tags<cr>
 
 " This is the default extra key bindings
 let g:fzf_action = {
