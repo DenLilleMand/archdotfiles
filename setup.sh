@@ -3,7 +3,7 @@ if [ "$1" = "home" ]; then
     xrandr --output HDMI1 --auto --output eDP1 --off 
     polybar bar2 &
 elif [ "$1" = "work" ]; then
-    xrandr --output DP1 --primary --auto --output DP2 --left-of DP1 --auto --output eDP1 --off 
+    xrandr --output DP1 --primary --auto --auto --output eDP1 --off 
     polybar bar4 & disown
 elif [ "$1" = "omnio" ]; then
     xrandr --output DP1 --auto --output eDP1 --off 

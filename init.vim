@@ -393,6 +393,8 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
 
+    Plug 'jceb/vim-orgmode'
+
     " fzf
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
@@ -563,7 +565,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_enter = 1
 "let g:ale_open_list = 1
 nnoremap <leader>an :ALENext<CR>
-nnoremap <leader>ab :ALEPrevious<CR>
+nnoremap <leader>ap :ALEPrevious<CR>
 " Python ----------------- {{{
 
 let g:jedi#completions_enabled = 0
