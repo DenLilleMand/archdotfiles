@@ -156,6 +156,9 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
 "This maps jk to escape, that makes it hard to write jk, but its better than 'typeing escape each time to leave insert mode, anyway, i feel like ESC is "better suited for saveing+quitting a file, while shift-ESC could be :q!
 inoremap jk <ESC>
 
+map! <C-F> <Esc>gUiw`]a
+
+
 noremap <C-1> :bfirst
 noremap <C-2> :blast
 
