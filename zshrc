@@ -90,6 +90,7 @@ export GO_HOME="/usr/lib/go"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GO_HOME/bin
+
 export PATH=$PATH:$HOME/intellij/goland/bin
 export PATH=$PATH:$HOME/phpstorm/bin
 export PATH=$PATH:$HOME/.local/bin
@@ -127,7 +128,6 @@ alias cdcera="cd $GOPATH/src/github.com/ceraorg/ceraordre"
 alias cera="$GOPATH/src/github.com/ceraorg/ceraordre/scripts/cera.sh"
 alias chromium="chromium & disown"
 #alias psql="pgcli"
-alias nvim="neovim"
 export FZF_BASE=/home/denlillemand/.oh-my-zsh/custom/plugins/fzf/
 
 HISTSIZE=10000000

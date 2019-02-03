@@ -91,9 +91,6 @@ set shiftwidth=4
 "we're at like 1 it would indent 3.
 set smartindent
 
-"setting the syntax
-syntax off
-"syntax enable
 
 " Turn on line numbering. Turn it off with 'set nonu'
 set nu
@@ -234,12 +231,13 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let guicursor=1
 set termguicolors
 set background=dark
-colorscheme evening
+colorscheme solarized
 "}}}
 " Vim-latex ------------------- {{{
 "In some cases it will detect a file with the 'tex' suffix as plaintex, to
 "prevent this we set the following setting:
 let g:vimtex_enable = 1
+let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor='latex'
 "}}}
 " sql --------------- {{{
@@ -273,9 +271,9 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 "}}}
 "C specific things ------------- {{{
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+"let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
-let g:deoplete#source#clang#clang_header = '/usr/lib/clang/4.0.1/lib/linux/libclang_rt.dyndd-x86_64.so'
+"let g:deoplete#source#clang#clang_header = '/usr/lib/clang/4.0.1/lib/linux/libclang_rt.dyndd-x86_64.so'
 "}}}
 map <leader>l :split<cr><leader>d
 " Omnifunc plugin -------------{{{
@@ -297,28 +295,22 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "Vim-plug -------------------- {{{
 call plug#begin('$HOME/.config/nvim/plugged')
     
-    Plug 'cespare/vim-toml', { 'for':'toml' }
-
     "neovim dev plugs
-    Plug 'tweekmonster/deoplete-clang2'
-    Plug 'dbakker/vim-lint'
-    Plug 'neomake/neomake'
-    Plug 'tweekmonster/helpful.vim'
-    Plug 'tbastos/vim-lua'
-    Plug 'tweekmonster/nvimdev.nvim'
+    "Plug 'tweekmonster/deoplete-clang2'
+    "Plug 'dbakker/vim-lint'
+    "Plug 'neomake/neomake'
+    "Plug 'tweekmonster/helpful.vim'
+    "Plug 'tbastos/vim-lua'
+    "Plug 'tweekmonster/nvimdev.nvim'
 
     "go
-    "Plug 'fatih/vim-go'
-    "Plug 'Shougo/deoplete.nvim'
-    "Plug 'zchee/deoplete-go'
-    "Plug 'zchee/deoplete-jedi'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'fatih/vim-go', { 'for':'go', 'do': ':GoUpdateBinaries' }
+    Plug 'mdempsky/gocode', { 'for':'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+    Plug 'zchee/deoplete-go', { 'for':'go', 'do': 'make' }
 
-
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'fatih/vim-go'
-    Plug 'zchee/deoplete-go', {'do':'make'}
-    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-
+    "vimscript
+    Plug 'Shougo/neco-vim'
 
     "general
     Plug 'rhysd/vim-grammarous'
@@ -326,13 +318,13 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/neoinclude.vim' 
     Plug 'zchee/libclang-python3'
-    Plug 'posva/vim-vue'
-    Plug 'pangloss/vim-javascript'
+    Plug 'posva/vim-vue', { 'for':'vue' }
+    Plug 'pangloss/vim-javascript', { 'for':'javascript' }
     Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'w0rp/ale'
-    Plug 'tpope/vim-markdown'
+    Plug 'w0rp/ale', { 'for': ['go','python'] }
+    Plug 'tpope/vim-markdown', { 'for': 'md' }
     Plug 'amix/open_file_under_cursor.vim'
-    Plug 'vim-scripts/nginx.vim'
+    Plug 'vim-scripts/nginx.vim', { 'for':'conf' }
     Plug 'maxbrunsfeld/vim-yankstack'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-speeddating'
@@ -342,25 +334,24 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
 
+    "organisational
     Plug 'jceb/vim-orgmode'
 
-    " fzf
+    "fzf
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
 
     "python
-    Plug 'zchee/deoplete-jedi'
-    Plug 'fisadev/vim-isort'
-    Plug 'nvie/vim-flake8'
-    Plug 'davidhalter/jedi-vim'
+    Plug 'zchee/deoplete-jedi', { 'for':'python' }
+    Plug 'fisadev/vim-isort', { 'for':'python' }
+    Plug 'nvie/vim-flake8', { 'for':'python' }
 
     " latex plugin for university
-    Plug 'lervag/vimtex'
+    Plug 'lervag/vimtex', { 'for':'tex' }
 
     " snippets
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-
+    Plug 'SirVer/ultisnips', { 'for':['python','go'] }
+    Plug 'honza/vim-snippets', { 'for':['python','go'] }
 
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -369,8 +360,9 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'scrooloose/nerdcommenter'
 
     Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'mhartington/nvim-typescript'
-    Plug 'Shougo/denite.nvim', 
+    Plug 'mhartington/nvim-typescript', { 'for':'ts' }
+    Plug 'Shougo/denite.nvim', { 'for':'ts' }
+
 
     Plug 'google/vim-searchindex'
     Plug 'farmergreg/vim-lastplace'
@@ -428,17 +420,17 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 "configuration:
 let g:go_def_mode = "guru"
-let g:go_highlight_string_spellcheck = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_trailing_whitespace_error = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_structs = 1
+"let g:go_highlight_string_spellcheck = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_highlight_generate_tags = 1
+"let g:go_highlight_fields = 1
+"let g:go_highlight_types = 1
+"let g:go_highlight_methods = 1
+"let g:go_highlight_functions = 1
+"let g:go_highlight_operators = 1
+"let g:go_highlight_trailing_whitespace_error = 1
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_structs = 1
 let g:go_echo_command_info = 1
 let g:go_gocode_autobuild = 1
 "let g:go_auto_sameids = 1
@@ -505,7 +497,7 @@ nnoremap <leader>an :ALENext<CR>
 nnoremap <leader>ap :ALEPrevious<CR>
 " Python ----------------- {{{
 
-let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 1
 
 let g:ale_python_flake8_args = '-m flake8'
 let g:flake8_error_marker='EE'     " set error marker to 'EE'
@@ -763,12 +755,7 @@ endif
 "tnoremap <c-Space> <c-\><c-n>
 "nmap <c-t><c-t> :vsplit+terminal<CR>
 "}}}
-" turn off the syntax --------- {{{
-syntax off
-" what was this?
 packadd vimball
-"}}}
-let g:vimtex_compiler_progname = 'nvr'
 " Filetype specific settings --------------------- {{{
 
 "let whitelist = ['go', 'python']
@@ -785,8 +772,17 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
 "}}}
 "Gopher stuff ------- {{{
 "deoplete(for auto-completion in nvim ------------ {{{
+set completeopt+=noselect
 let g:deoplete#enable_at_startup=1
+let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_auto_close_preview = 1
 "}}}
 
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 1
+
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources = {}
+let g:deoplete#sources.go = ['buffer', 'go']
