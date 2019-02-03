@@ -21,6 +21,8 @@ set nobackup " not sure what is being backed up tbh
 set autoread " When opening a buffer from multiple terminals i want them to update when saving one
 au FocusGained * :checktime
 set ignorecase  " make search ignore case
+set exrc " load a .nvimrc in workspaces 
+set nojoinspaces " leave 1 space in join
 "}}}
 " Making sure lines is 80 columns ------------- {{{
 set colorcolumn=80
@@ -105,59 +107,11 @@ set ic
 " Wrap text instead of being on one line
 set lbr
 "}}}
-" Filetype specific settings --------------------- {{{
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-augroup END
-"The following is really strange rofl, why would
-"the file type be javascript written like that?
-"i thouth it only looked at the postfix, like js,
-"so what happens if we do jsx, or xlsx etc. some of the new
-"file types? then i guess vim will use the postfix if it doesn't
-"exist in their dictionary
-augroup filetype_js
-  autocmd!
-  autocmd FileType javascript :inoreabbrev <buffer> _author
-    \/**
-    \<cr>Author: Matti Andreas Nielsen
-    \<cr>License: MIT
-    \<cr>Date:
-    \<cr>Description:
-    \<cr>*/
-    autocmd FileType javascript :inoreabbrev <buffer> _react
-    \import react,{Components,PropTypes} from 'react';
-    \<cr>
-    \<cr>
-    \<cr>export default class Herpderp extends Component {
-    \<cr>constructor(context, props) {
-    \<cr>super(context,props);
-    \<cr>this.state = {}
-    \<cr>}
-    \<cr>
-    \<cr>
-    \<cr>
-    \<cr>render() {
-    \<cr>return() {
-    \<cr>}
-    \<cr>}
-    \<cr>}
-augroup END
-autocmd FileType javascript setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
-
-"https://github.com/majutsushi/tagbar/blob/master/doc/tagbar.txt#L808:21
-"If you want to open it only if you're opening Vim with a supported file/files use this instead:
-"autocmd VimEnter * nested :call tagbar#autoopen(1)
-" }}}
 "Abreviations/Aliases ---------------------------- {{{
 " }}}
 " Non-Plugin mappings -------------------- {{{
 "This maps jk to escape, that makes it hard to write jk, but its better than 'typeing escape each time to leave insert mode, anyway, i feel like ESC is "better suited for saveing+quitting a file, while shift-ESC could be :q!
 inoremap jk <ESC>
-
-map! <C-F> <Esc>gUiw`]a
-
 
 noremap <C-1> :bfirst
 noremap <C-2> :blast
@@ -219,12 +173,6 @@ noremap <C-n> :NERDTreeToggle<CR>
 " Fix a bug where the node looks weird
 let g:NERDTreeNodeDelimiter = "\u00a0"
 
-"Makes sure that NERDTree closes down aswell, whenever we do wq on the last
-"open buffer.
-augroup somegroup
-  autocmd!
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-augroup END
 
 let g:nerdtree_tabs_open_on_console_startup=1
 
@@ -283,7 +231,7 @@ let g:airline_theme='minimalist'
 "}}}
 "Solarized/Color settings -------------------- {{{
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let guicursor=1
 set termguicolors
 set background=dark
 colorscheme evening
@@ -329,8 +277,6 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
 let g:deoplete#source#clang#clang_header = '/usr/lib/clang/4.0.1/lib/linux/libclang_rt.dyndd-x86_64.so'
 "}}}
-let g:python_host_prog = '/usr/bin/python2.7'
-"let g:python3_host_prog = '/usr/bin/python3.6'
 map <leader>l :split<cr><leader>d
 " Omnifunc plugin -------------{{{
 " Ctrl-Space for completions. Heck Yeah!
@@ -348,38 +294,40 @@ inoremap <expr> <C-K> ("\<C-P>")
 "YAML----------------------_{{{
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
-"Gopher stuff ------- {{{
-"deoplete(for auto-completion in nvim ------------ {{{
-let g:deoplete#enable_at_startup=1
-"}}}
-"}}}
 "Vim-plug -------------------- {{{
 call plug#begin('$HOME/.config/nvim/plugged')
     
-    Plug 'cespare/vim-toml'
+    Plug 'cespare/vim-toml', { 'for':'toml' }
+
     "neovim dev plugs
     Plug 'tweekmonster/deoplete-clang2'
     Plug 'dbakker/vim-lint'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'neomake/neomake'
     Plug 'tweekmonster/helpful.vim'
     Plug 'tbastos/vim-lua'
-    Plug 'editorconfig/editorconfig-vim'
     Plug 'tweekmonster/nvimdev.nvim'
-    "Plug 'jodosha/vim-godebug'
-    Plug 'rhysd/vim-grammarous'
+
+    "go
+    "Plug 'fatih/vim-go'
+    "Plug 'Shougo/deoplete.nvim'
+    "Plug 'zchee/deoplete-go'
+    "Plug 'zchee/deoplete-jedi'
+
+
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'fatih/vim-go'
+    Plug 'zchee/deoplete-go', {'do':'make'}
+    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
 
     "general
-    Plug 'fatih/vim-go'
-    Plug 'nsf/gocode', { 'rtp': 'nvim', 'do':'~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-    Plug 'powerman/vim-plugin-AnsiEsc'
+    Plug 'rhysd/vim-grammarous'
+    Plug 'powerman/vim-plugin-ansiesc'
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/neoinclude.vim' 
     Plug 'zchee/libclang-python3'
     Plug 'posva/vim-vue'
-    Plug 'zchee/deoplete-go', {'do': 'make'}
     Plug 'pangloss/vim-javascript'
-    Plug 'ryym/vim-riot'
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'w0rp/ale'
     Plug 'tpope/vim-markdown'
@@ -390,9 +338,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tpope/vim-speeddating'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-fugitive'
-    "Plug 'easymotion/vim-easymotion'
     Plug 'rkitover/vimpager'
-    "Plug 'kshenoy/vim-signature'
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
 
@@ -405,50 +351,40 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "python
     Plug 'zchee/deoplete-jedi'
     Plug 'fisadev/vim-isort'
-    Plug 'tell-k/vim-autopep8'
     Plug 'nvie/vim-flake8'
     Plug 'davidhalter/jedi-vim'
 
-    "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-    "Plug 'flowtype/vim-flow', { 'do': 'npm install -g flow-bin'}
-
-    "Had some performance issues i think:
-    Plug 'jlanzarotta/bufexplorer'
-    "Good idea for a plugin, but doesn't work 100%:
-    "Plug 'terryma/vim-multiple-cursors'
-    "Latex plugin for university
+    " latex plugin for university
     Plug 'lervag/vimtex'
+
+    " snippets
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
 
-    "Solarized theme, the most popular vim theme.
-    Plug 'altercation/vim-colors-solarized'
 
-    "nerdcommenter
-    Plug 'scrooloose/nerdcommenter'
-
-    "gives us this nice interface, the contender for 2nd place is something called powerline",
-    "which is waay more heavy weight, and requires you to install system fonts to work properly.
-    "this is the newer and slimmer version, and we even set the theme to powerline, so we get their l&f.
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
 
-    "Automatically closes HTML tag once you finish typing it with >. It is also smart enough to not autoclose tags when in a comment,
-    "when they are self-closing, or when they have already been closed.
-    "Plug 'amirh/HTML-AutoCloseTag'
-
-    "Allows us to explore the file tree, open files and directories,
-    "bookmarks,toggle hidden files, it remembers cursor position within files - so
-    "we can close and reopen and just continue. link to best docs:    http://usevim.com/2012/07/18/nerdtree/
     Plug 'scrooloose/nerdtree'
+    Plug 'scrooloose/nerdcommenter'
 
-    " typescript required plugins
-    " https://github.com/mhartington/nvim-typescript
     Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    Plug 'Shougo/denite.nvim'
+    Plug 'mhartington/nvim-typescript'
+    Plug 'Shougo/denite.nvim', 
 
+    Plug 'google/vim-searchindex'
     Plug 'farmergreg/vim-lastplace'
+
+    " unused
+    "Plug 'altercation/vim-colors-solarized'
+    "Plug 'easymotion/vim-easymotion'
+    "Plug 'kshenoy/vim-signature'
+    "Plug 'tell-k/vim-autopep8'
+    "Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+    "Plug 'flowtype/vim-flow', { 'do': 'npm install -g flow-bin'}
+    "Plug 'terryma/vim-multiple-cursors'
+    "Plug 'amirh/html-autoclosetag'
+
 call plug#end()
 " }}}
 "some neovim mappings for yanking and pasting ------------ {{{
@@ -519,7 +455,8 @@ if !exists("g:go_gotags_bin")
 endif
 
 
-function! s:SetTagbar()
+
+function! SetTagbar()
   let bin_path = go#path#CheckBinPath(g:go_gotags_bin)
   if empty(bin_path)
     return
@@ -555,9 +492,6 @@ function! s:SetTagbar()
           \ }
   endif
 endfunction
-
-
-call s:SetTagbar()
 
 " Error and warning signs.
 let g:ale_sign_error = '⚠'
@@ -697,14 +631,15 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabnext<cr>
 map <leader>tb :tabprevious<cr> 
 "}}}
-let python3_host='/usr/bin/python3'
-let g:python3_host_prog = python3_host
-let g:ale_python_flake8_executable = python3_host
-let g:vim_isort_python_version = 'python3'
-function! AddCWDToPythonPath()
-	execute "python3 import os, sys; sys.path.append(os.getcwd())"
-	execute "python import os, sys; sys.path.append(os.getcwd())"
-endfunction
+let g:python3_host_prog = '/usr/bin/python3.7'
+let g:python_host_prog = '/usr/bin/python2.7'
+
+"let g:ale_python_flake8_executable = python3_host
+"let g:vim_isort_python_version = 'python3'
+"function! AddCWDToPythonPath()
+	"execute "python3 import os, sys; sys.path.append(os.getcwd())"
+	"execute "python import os, sys; sys.path.append(os.getcwd())"
+"endfunction
 " Neovim Terminal ---------- {{{
 "highlight TermCursor ctermfg=red guifg=red
 "function! s:OpenTerminals() abort
@@ -818,8 +753,40 @@ let g:lastplace_open_folds = 0
 "}}}
 endif
 "}}}
+"Terminal -------------------------- {{{
+"tnoremap <c-w><c-h> <c-\><c-n><c-w>h
+"tnoremap <c-w><c-j> <c-\><c-n><c-w>j
+"tnoremap <c-w><c-k> <c-\><c-n><c-w>k
+"tnoremap <c-w><c-l> <c-\><c-n><c-w>l
+
+"tnoremap <c-w><c-w> <c-\><c-n>
+"tnoremap <c-Space> <c-\><c-n>
+"nmap <c-t><c-t> :vsplit+terminal<CR>
+"}}}
 " turn off the syntax --------- {{{
 syntax off
 " what was this?
 packadd vimball
 "}}}
+let g:vimtex_compiler_progname = 'nvr'
+" Filetype specific settings --------------------- {{{
+
+"let whitelist = ['go', 'python']
+"autocmd BufRead * if index(whitelist, &ft) > 0 | Limelight | else |  Limelight! |
+
+autocmd BufRead,BufNewFile /etc/nginx/sites-*/* setfiletype conf
+
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
+"}}}
+"Gopher stuff ------- {{{
+"deoplete(for auto-completion in nvim ------------ {{{
+let g:deoplete#enable_at_startup=1
+"}}}
+
+let g:jedi#completions_enabled = 1
+let g:jedi#popup_on_dot = 1

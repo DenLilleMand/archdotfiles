@@ -92,6 +92,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GO_HOME/bin
 export PATH=$PATH:$HOME/intellij/goland/bin
 export PATH=$PATH:$HOME/phpstorm/bin
+export PATH=$PATH:$HOME/.local/bin
 
 #Pagers
 export PAGER='vim -R -u ~/.vimrcpg -'
