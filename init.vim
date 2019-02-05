@@ -74,12 +74,6 @@ filetype plugin indent on
 "plugins wouldve overriden this setting anyway?
 "filetype indent on
 
-" required, not entirely sure what this does compared to the one above, maybe
-" the same just plugin specific.
-" filetype plugin indent on
-
-filetype plugin on
-
 "Sets it on.
 set autoindent
 
@@ -137,8 +131,8 @@ nnoremap <C-s> :w <cr>
 
 nnoremap  <leader>l :s/  \+/ /g <cr>
 
-" Open up current file in chrome
-nnoremap <silent> <leader>ch :exec 'silent !open -a "Chrome" % &'
+" Open up current file in chromium
+nnoremap <silent> <leader>ch :exec 'silent !open -a "chromium" % &'
 
 "Map <c-u> to back-visual-select eol-caps all, to avoid shift
 inoremap <c-u> <esc>0v$U
@@ -148,6 +142,16 @@ nnoremap <c-u> 0v$U
 nnoremap <leader>hl :noh<cr>
 
 nnoremap <leader>jk :stop<cr>
+
+" I know that tpope made a very nice plugin
+" but i really like the idea that it is this
+" easy to do that functionality my self
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <leader>} viw<esc>a}<esc>hbi{<esc>lel
 
 "where ever we are, this mapping will allways
 "point to our .vimrc file and open it in a split window.
@@ -226,13 +230,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='minimalist'
 "}}}
-"Solarized/Color settings -------------------- {{{
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let guicursor=1
-set termguicolors
-set background=dark
-colorscheme solarized
-"}}}
 " Vim-latex ------------------- {{{
 "In some cases it will detect a file with the 'tex' suffix as plaintex, to
 "prevent this we set the following setting:
@@ -294,6 +291,12 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 "}}}
 "Vim-plug -------------------- {{{
 call plug#begin('$HOME/.config/nvim/plugged')
+
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-speeddating'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-fugitive'
+
     
     "neovim dev plugs
     "Plug 'tweekmonster/deoplete-clang2'
@@ -307,7 +310,15 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'fatih/vim-go', { 'for':'go', 'do': ':GoUpdateBinaries' }
     Plug 'mdempsky/gocode', { 'for':'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-    Plug 'zchee/deoplete-go', { 'for':'go', 'do': 'make' }
+    Plug 'deoplete-plugins/deoplete-go', { 'for':'go', 'do': 'make' }
+
+    "low contrast colorscheme
+    "To work permanently do a symlink between it's 
+    Plug 'junegunn/seoul256.vim'
+
+    "Only focus on one function
+    Plug 'junegunn/limelight.vim', { 'for':['go','python'] }
+
 
     "vimscript
     Plug 'Shougo/neco-vim'
@@ -317,19 +328,16 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'powerman/vim-plugin-ansiesc'
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/neoinclude.vim' 
-    Plug 'zchee/libclang-python3'
+    Plug 'deoplete-plugins/libclang-python3'
     Plug 'posva/vim-vue', { 'for':'vue' }
     Plug 'pangloss/vim-javascript', { 'for':'javascript' }
-    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'w0rp/ale', { 'for': ['go','python'] }
     Plug 'tpope/vim-markdown', { 'for': 'md' }
     Plug 'amix/open_file_under_cursor.vim'
     Plug 'vim-scripts/nginx.vim', { 'for':'conf' }
     Plug 'maxbrunsfeld/vim-yankstack'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-speeddating'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-fugitive'
+
+
     Plug 'rkitover/vimpager'
     Plug 'mileszs/ack.vim'
     Plug 'majutsushi/tagbar'
@@ -342,7 +350,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'
 
     "python
-    Plug 'zchee/deoplete-jedi', { 'for':'python' }
+    Plug 'deoplete-plugins/deoplete-jedi', { 'for':'python' }
     Plug 'fisadev/vim-isort', { 'for':'python' }
     Plug 'nvie/vim-flake8', { 'for':'python' }
 
@@ -359,7 +367,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
 
-    Plug 'HerringtonDarkholme/yats.vim'
+    Plug 'HerringtonDarkholme/yats.vim', { 'for':'ts' }
     Plug 'mhartington/nvim-typescript', { 'for':'ts' }
     Plug 'Shougo/denite.nvim', { 'for':'ts' }
 
@@ -368,6 +376,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'farmergreg/vim-lastplace'
 
     " unused
+    "Plug 'ctrlpvim/ctrlp.vim'
     "Plug 'altercation/vim-colors-solarized'
     "Plug 'easymotion/vim-easymotion'
     "Plug 'kshenoy/vim-signature'
@@ -379,6 +388,16 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
 call plug#end()
 " }}}
+"Theme settings -------------------- {{{
+syntax enable
+syntax on
+
+colo seoul256
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let guicursor=1
+set termguicolors
+set background=dark
+"}}}
 "some neovim mappings for yanking and pasting ------------ {{{
 vnoremap <leader>y "+y
 nnoremap <leader>Y "+yg_
@@ -509,17 +528,16 @@ let g:flake8_show_in_file=1  " show
 "Help mappings:
 "Go mappings(maybe i should move them into filetype specific, but then again
 "i sometimes open nvim in a go repository with no files open and want to run
-"GoInstall):
 nnoremap <silent> <leader>d :GoDef<cr>
 nnoremap <leader>gb :GoBuild<cr>
 nnoremap <leader>r :GoRun<cr>
-nnoremap <leader>i :GoInstall<cr>
+"nnoremap <leader>i :GoInstall<cr>
 "nnoremap <leader>l :GoLint<cr>
-nnoremap <leader>gr :GoReferrers<cr>
-nnoremap <leader>gc :GoCallees<cr>
-nnoremap <leader>gi :GoImplements<cr>
-nnoremap <leader>gde :GoDecls<cr>
-nnoremap <leader>gdd :GoDeclsDir<cr>
+"nnoremap <leader>gr :GoReferrers<cr>
+"nnoremap <leader>gc :GoCallees<cr>
+"nnoremap <leader>gi :GoImplements<cr>
+"nnoremap <leader>gde :GoDecls<cr>
+"nnoremap <leader>gdd :GoDeclsDir<cr>
 nnoremap <leader>o :GoDefPop<cr>
 nnoremap <leader>a :GoAlternate<cr>
 nnoremap <leader>tf :GoTestFunc<cr>
@@ -778,11 +796,15 @@ let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_auto_close_preview = 1
 "}}}
-
 let g:jedi#completions_enabled = 1
 let g:jedi#popup_on_dot = 1
-
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 let g:deoplete#sources = {}
 let g:deoplete#sources.go = ['buffer', 'go']
+"}}}
+"Limelight ----------------- {{{
+"let whitelist = ['go', 'python']
+"autocmd BufRead * if index(whitelist, &ft) > -1 | Limelight | else |  Limelight! |
+"}}}
+

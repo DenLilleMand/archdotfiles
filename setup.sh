@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ "$1" = "home" ]; then
-    xrandr --output HDMI1 --auto --output eDP1 --off 
-    polybar bar2 &
+    xrandr --output DP1 --auto --output eDP1 --off 
+    polybar bar5 & disown
 elif [ "$1" = "work" ]; then
     xrandr --output DP1 --primary --auto --auto --output eDP1 --off 
     polybar bar4 & disown
