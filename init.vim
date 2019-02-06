@@ -439,20 +439,20 @@ nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 "configuration:
 let g:go_def_mode = "guru"
-"let g:go_highlight_string_spellcheck = 1
-"let g:go_highlight_build_constraints = 1
-"let g:go_highlight_generate_tags = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_types = 1
-"let g:go_highlight_methods = 1
-"let g:go_highlight_functions = 1
-"let g:go_highlight_operators = 1
-"let g:go_highlight_trailing_whitespace_error = 1
-"let g:go_highlight_extra_types = 1
-"let g:go_highlight_structs = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_structs = 1
 let g:go_echo_command_info = 1
 let g:go_gocode_autobuild = 1
-"let g:go_auto_sameids = 1
+let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
 
 if !executable('ctags')
