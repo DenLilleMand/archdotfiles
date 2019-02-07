@@ -1,0 +1,3 @@
+# Make sure that the hardware clock synchronises, otherwise it will
+# get behind eventually
+timedatectl set-ntp true
