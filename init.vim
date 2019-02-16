@@ -311,6 +311,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'fatih/vim-go', { 'for':'go', 'do': ':GoUpdateBinaries' }
     Plug 'mdempsky/gocode', { 'for':'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
     Plug 'deoplete-plugins/deoplete-go', { 'for':'go', 'do': 'make' }
+    Plug 'sebastianmarkow/deoplete-rust'
 
     "low contrast colorscheme
     "To work permanently do a symlink between it's 

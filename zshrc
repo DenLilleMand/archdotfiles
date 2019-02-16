@@ -62,7 +62,7 @@ set t_Co=256
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(autojump git vi-mode fzf aws archlinux ssh-agent systemd docker gpg-agent github postgres wd powerline)
+plugins=(autojump git vi-mode fzf aws archlinux ssh-agent systemd docker gpg-agent github postgres wd powerline command-time)
 
 source $ZSH/oh-my-zsh.sh
 
