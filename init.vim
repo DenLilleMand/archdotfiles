@@ -1,8 +1,8 @@
 "Author info -----------------------------{{{
-"Author:DenLilleMand
+"Author: DenLilleMand
 "Creation Date: 1st of january,  2015
 "Description: A lot of the most popular plugins, mainly golang focused
-"right now.
+"		right now.
 "License: MIT
 "}}}
 " normal options -------------- {{{
@@ -23,6 +23,8 @@ au FocusGained * :checktime
 set ignorecase  " make search ignore case
 set exrc " load a .nvimrc in workspaces 
 set nojoinspaces " leave 1 space in join
+set cmdheight=2
+set hidden
 "}}}
 " Making sure lines is 80 columns ------------- {{{
 set colorcolumn=80
@@ -104,6 +106,9 @@ set lbr
 "This maps jk to escape, that makes it hard to write jk, but its better than 'typeing escape each time to leave insert mode, anyway, i feel like ESC is "better suited for saveing+quitting a file, while shift-ESC could be :q!
 inoremap jk <ESC>
 
+"inoremap ` <ESC>
+
+
 noremap <C-1> :bfirst
 noremap <C-2> :blast
 
@@ -116,8 +121,8 @@ nmap <CR> o<Esc>k
 "is suppose to change buffers with tab and shift-tab. would still be nice
 "changeing buffers with a number though. Ctrl+p does it with names so thats
 "hardly nessecery.
-nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+"nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+"nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
 
 "delete trailing white space:
 nnoremap <leader>dws :%s/\s\+$//e<cr>
@@ -126,8 +131,6 @@ nnoremap <leader>dws :%s/\s\+$//e<cr>
 let mapleader="\\"
 
 nnoremap <leader>s :/\v
-
-nnoremap <C-s> :w <cr>
 
 nnoremap  <leader>l :s/  \+/ /g <cr>
 
@@ -260,12 +263,14 @@ set cursorline
 "}}}
 "neo-vim specific ------------- {{{
 if has('nvim')
+"vim-auto-save---------------------{{{
+"let g:auto_save = 1  " enable AutoSave on Vim startup
+"let g:auto_save_events = ["InsertLeave", "TextChanged"]
+"}}}
 "Cursor ---------------------{{{
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-
 "}}}
 "C specific things ------------- {{{
 "let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
@@ -297,6 +302,10 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-fugitive'
 
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+
+    "Plug '907th/vim-auto-save'
+
     
     "neovim dev plugs
     "Plug 'tweekmonster/deoplete-clang2'
@@ -307,11 +316,11 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "Plug 'tweekmonster/nvimdev.nvim'
 
     "go
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'fatih/vim-go', { 'for':'go', 'do': ':GoUpdateBinaries' }
     Plug 'mdempsky/gocode', { 'for':'go', 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-    Plug 'deoplete-plugins/deoplete-go', { 'for':'go', 'do': 'make' }
-    Plug 'sebastianmarkow/deoplete-rust'
+    "Plug 'deoplete-plugins/deoplete-go', { 'for':'go', 'do': 'make' }
+    "Plug 'sebastianmarkow/deoplete-rust'
 
     "low contrast colorscheme
     "To work permanently do a symlink between it's 
@@ -329,7 +338,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'powerman/vim-plugin-ansiesc'
     Plug 'airblade/vim-gitgutter'
     Plug 'Shougo/neoinclude.vim' 
-    Plug 'deoplete-plugins/libclang-python3'
+    "Plug 'deoplete-plugins/libclang-python3'
     Plug 'posva/vim-vue', { 'for':'vue' }
     Plug 'pangloss/vim-javascript', { 'for':'javascript' }
     Plug 'w0rp/ale', { 'for': ['go','python'] }
@@ -529,9 +538,9 @@ let g:flake8_show_in_file=1  " show
 "Help mappings:
 "Go mappings(maybe i should move them into filetype specific, but then again
 "i sometimes open nvim in a go repository with no files open and want to run
-nnoremap <silent> <leader>d :GoDef<cr>
-nnoremap <leader>gb :GoBuild<cr>
-nnoremap <leader>r :GoRun<cr>
+"nnoremap <silent> <leader>d :GoDef<cr>
+"nnoremap <leader>gb :GoBuild<cr>
+"nnoremap <leader>r :GoRun<cr>
 "nnoremap <leader>i :GoInstall<cr>
 "nnoremap <leader>l :GoLint<cr>
 "nnoremap <leader>gr :GoReferrers<cr>
@@ -539,10 +548,10 @@ nnoremap <leader>r :GoRun<cr>
 "nnoremap <leader>gi :GoImplements<cr>
 "nnoremap <leader>gde :GoDecls<cr>
 "nnoremap <leader>gdd :GoDeclsDir<cr>
-nnoremap <leader>o :GoDefPop<cr>
-nnoremap <leader>a :GoAlternate<cr>
-nnoremap <leader>tf :GoTestFunc<cr>
-nnoremap <leader>gd :GoDoc<cr>
+"nnoremap <leader>o :GoDefPop<cr>
+"nnoremap <leader>a :GoAlternate<cr>
+"nnoremap <leader>tf :GoTestFunc<cr>
+"nnoremap <leader>gd :GoDoc<cr>
 "}}}
 "GoCode configuration --------------- {{{
 "GoCode is configured through json somewhere at ~/.config/gocode
@@ -791,21 +800,101 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
 "}}}
 "Gopher stuff ------- {{{
 "deoplete(for auto-completion in nvim ------------ {{{
-set completeopt+=noselect
-let g:deoplete#enable_at_startup=1
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_auto_close_preview = 1
+"set completeopt+=noselect
+"let g:deoplete#enable_at_startup=1
+"let g:deoplete#auto_completion_start_length = 1
+"let g:deoplete#enable_smart_case = 1
+"let g:deoplete#enable_auto_close_preview = 1
 "}}}
-let g:jedi#completions_enabled = 1
-let g:jedi#popup_on_dot = 1
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources = {}
-let g:deoplete#sources.go = ['buffer', 'go']
+"let g:jedi#completions_enabled = 1
+"let g:jedi#popup_on_dot = 1
+"let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+"let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+"let g:deoplete#sources = {}
+"let g:deoplete#sources.go = ['buffer', 'go']
 "}}}
 "Limelight ----------------- {{{
 "let whitelist = ['go', 'python']
 "autocmd BufRead * if index(whitelist, &ft) > -1 | Limelight | else |  Limelight! |
 "}}}
+nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <silent> <leader>y <Plug>(coc-type-definition)
+nmap <silent> <leader>i <Plug>(coc-implementation)
+nmap <silent> <leader>r <Plug>(coc-references)
 
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+
+" Add diagnostic info for https://github.com/itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
