@@ -1,1 +1,42 @@
-/home/denlillemand/.gitconfig
+[user]
+	email = matti@denlillemand.com
+	name = Matti Andreas Nielsen
+[core]
+	editor = "nvim"
+	pager = less -+F
+[commit]
+	verbose = true
+	template = ~/.gitmessage
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[merge]
+	tool = fugitive
+[diff]
+	tool = nvimdiff
+	renameLimit = 1210
+[commit]
+	verbose = true
+[difftool]
+	prompt = true
+[difftool "nvimdiff"]
+	cmd = "nvim -d -u ~/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\""
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[alias]
+	aa = add --all
+	d = difftool
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	wlist = worktree list
+	cm = commit
+	symdiff = "!f() { git $1 --right-only $2...; }; f"
+	cmm = "!f() { git commit -m \"$1\"; }; f"
+	lsfull = log --oneline --stat -p --color --pretty=format:'%Cgreen%h%Creset %Cgreen(%cr)  %C(yellow)%d%Creset%s %C(bold blue)[%an]%Creset' --abbrev-commit
+	lssemi = log --oneline --stat  --color --pretty=format:'%Cgreen%h%Creset %Cgreen(%cr)  %C(yellow)%d%Creset%s %C(bold blue)[%an]%Creset' --abbrev-commit
+	ls = log --oneline --color --pretty=format:'%Cgreen%h%Creset %Cgreen(%cr)  %C(yellow)%d%Creset%s %C(bold blue)[%an]%Creset' --abbrev-commit
+	lg = log --color --graph --pretty=format:'%Cgreen%h%Creset %Cgreen(%cr)  %C(yellow)%d%Creset%s %C(bold blue)[%an]%Creset' --abbrev-commit
+	lgall = log --all --color --graph --pretty=format:'%Cgreen%h%Creset %Cgreen(%cr)  %C(yellow)%d%Creset%s %C(bold blue)[%an]%Creset' --abbrev-commit
+	sta = status
+	mergeff = merge --ff-only
+	pullff = pull --ff-only
+	hash = rev-parse HEAD
+	co-pr = !sh -c 'git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1' -
