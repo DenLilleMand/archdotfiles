@@ -464,6 +464,7 @@ let g:go_echo_command_info = 1
 let g:go_gocode_autobuild = 1
 let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
+let g:go_addtags_transform = "snakecase"
 
 if !executable('ctags')
   finish
@@ -878,8 +879,6 @@ let g:lightline = {
       \   'cocstatus': 'coc#status'
       \ },
       \ }
-
-
 
 " Using CocList
 " Show all diagnostics

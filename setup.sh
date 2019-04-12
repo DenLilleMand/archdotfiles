@@ -7,7 +7,7 @@ elif [ "$1" = "work2" ]; then
     polybar bar4 & disown
 elif [ "$1" = "work" ]; then
     xrandr --output DP1 --primary --auto --output DP2 --auto --right-of DP1 --output eDP1 --off 
-    polybar bar4 & disown
+    #polybar bar4 & disown
 elif [ "$1" = "omnio" ]; then
     xrandr --output DP1 --auto --output eDP1 --off 
 elif [ "$1" = "laptop" ]; then

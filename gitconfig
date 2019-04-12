@@ -4,6 +4,7 @@
 [core]
 	editor = "nvim"
 	pager = less -+F
+	filemode = false
 [commit]
 	verbose = true
 	template = ~/.gitmessage
