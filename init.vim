@@ -302,7 +302,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-fugitive'
 
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+    Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile'}
 
     "Plug '907th/vim-auto-save'
 
@@ -444,7 +444,7 @@ function! s:create_go_doc_comment()
   execute ":put! z"
   execute ":norm I// \<Esc>$"
 endfunction
-nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
+"nnoremap <leader>ui :<C-u>call <SID>create_go_doc_comment()<CR>
 
 
 "configuration:
