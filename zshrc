@@ -123,6 +123,7 @@ fi
 #
 # Example aliases
 alias zshconfig="nvim ~/.zshrc"
+alias ls="exa"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cdcera="cd $GOPATH/src/github.com/ceraorg/ceraordre"
 alias cera="$GOPATH/src/github.com/ceraorg/ceraordre/scripts/cera.sh"
