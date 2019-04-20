@@ -1,3 +1,4 @@
 # Make sure that the hardware clock synchronises, otherwise it will
-# get behind eventually
+# get behind eventually causing crazy errors, e.g. when connecting to AWS
+# it will send a long the clock and if it doesn't match, it will just not work
 timedatectl set-ntp true
