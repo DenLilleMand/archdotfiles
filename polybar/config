@@ -23,6 +23,9 @@ timedate-fg = #23220e
 wlan-bg = #4e91e8
 wlan-fg = #081e3a
 
+cpu-bg = #4e91e8
+cpu-fg = #081e3a
+
 alsa-bg = #f9e76d
 alsa-fg =
 alsa-empty = #7c7c7c
@@ -88,9 +91,9 @@ scroll-down = i3wm-wsprev
 cursor-click = pointer
 cursor-scroll = default
 
-modules-left = title cmus
+modules-left = title
 modules-center = i3
-modules-right = wlan battery date
+modules-right = wlan cpu battery date
 ;}}}
 
 [module/title]
@@ -99,10 +102,21 @@ type = internal/xwindow
 label = %title%
 format = <label>
 label-maxlen = 30
-label-empty = "rm-rfasterisk // felis"
+label-empty = "Empty label"
 format-padding = ${variables.mpadding}
 format-background = ${colors.title-bg}
 format-foreground = ${colors.title-fg}
+;}}}
+
+;{{{
+[module/cpu]
+type = internal/cpu
+label = %percentage:2%%
+interval = 2
+format-prefix = "CPU: "
+format-prefix-foreground = ${colors.cpu-fg}
+format-padding = ${variables.mpadding}
+format-background = ${colors.cpu-bg}
 ;}}}
 
 [module/i3]
@@ -190,19 +204,19 @@ format-full-background = ${colors.battery-full-bg}
 format-full-padding = ${variables.mpadding}
 ;}}}
 
-[module/cmus]
+;[module/cmus]
 ;{{{
-type = custom/script
-exec = sh ~/.config/polybar/cmus.notfy.sh
-exec-if = pgrep -x cmus
-format-padding = ${variables.mpadding}
-interval = 0.01
-scroll-up = cmus-remote -r
-scroll-down = cmus-remote -n
-click-left = cmus-remote -u
-click-right = pkill cmus
-format-background = ${colors.cmus-bg}
-format-foreground = ${colors.cmus-fg}
+;type = custom/script
+;exec = sh ~/.config/polybar/cmus.notfy.sh
+;exec-if = pgrep -x cmus
+;format-padding = ${variables.mpadding}
+;interval = 0.01
+;scroll-up = cmus-remote -r
+;scroll-down = cmus-remote -n
+;click-left = cmus-remote -u
+;click-right = pkill cmus
+;format-background = ${colors.cmus-bg}
+;format-foreground = ${colors.cmus-fg}
 ;}}}
 
 [settings]
