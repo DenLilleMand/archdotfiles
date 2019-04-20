@@ -12,7 +12,7 @@
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 exec "setxkbmap -option caps:super"
-# font pango:hack 12
+font pango:hack 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -25,8 +25,8 @@ exec "setxkbmap -option caps:super"
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-#set $mod Mod4
-set $mod Mod1
+set $mod Mod4
+#set $mod Mod1
 
 
 # use these keys for focus, movement, and resize directions when reaching for
@@ -100,16 +100,17 @@ bindsym $mod+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
-set $workspace1 "1:Terminal"
-set $workspace2 "2:Editor"
-set $workspace3 "3:Chromium"
-set $workspace5 "5:VLC"
+set $workspace1 "1:Terminal "
+set $workspace2 "2:Editor "
+set $workspace3 "3:Chromium "
+set $workspace4 "4:database "
+set $workspace5 "5:VLC "
 
 # switch to workspace
 bindsym	F1  workspace $workspace1
 bindsym F2 workspace $workspace2
 bindsym F3 workspace $workspace3
-bindsym F4 workspace 4
+bindsym F4 workspace $workspace4
 bindsym F5 workspace $workspace5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
@@ -121,7 +122,7 @@ bindsym $mod+0 workspace 10
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+4 move container to workspace $workspace4
 bindsym $mod+Shift+5 move container to workspace $workspace5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
@@ -199,7 +200,6 @@ bindsym $mod+m move workspace to output left
 
 #for_window [class="^.*"] border pixel 0
 smart_borders on
-
 
 gaps inner 5
 gaps outer 5
