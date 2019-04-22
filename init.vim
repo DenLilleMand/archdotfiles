@@ -21,7 +21,7 @@ set nobackup " not sure what is being backed up tbh
 set autoread " When opening a buffer from multiple terminals i want them to update when saving one
 au FocusGained * :checktime
 set ignorecase  " make search ignore case
-set exrc " load a .nvimrc in workspaces 
+set exrc " load a .nvimrc in workspaces
 set nojoinspaces " leave 1 space in join
 set cmdheight=2
 set hidden
@@ -53,17 +53,17 @@ map <C-l> <C-W>l
 " Mappings for the "camelcase" script ----- {{{
 " https://www.vim.org/scripts/script.php?script_id=1905
 
-nmap c,w c,e 
+nmap c,w c,e
 
-runtime plugged/camelcasemotion.vim 
-omap i,w i,e 
-xmap i,w i,e 
+runtime plugged/camelcasemotion.vim
+omap i,w i,e
+xmap i,w i,e
 
-" To avoid losing the (rarely used) , mapping (which repeats latest f, t, F or 
+" To avoid losing the (rarely used) , mapping (which repeats latest f, t, F or
 " T in opposite direction), we can remap it to ,,
-nnoremap ,, , 
-xnoremap ,, , 
-onoremap ,, , 
+nnoremap ,, ,
+xnoremap ,, ,
+onoremap ,, ,
 "}}}
 " Turn all of the normal filetype settings on ------- {{{
 filetype on
@@ -306,7 +306,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
     "Plug '907th/vim-auto-save'
 
-    
+
     "neovim dev plugs
     "Plug 'tweekmonster/deoplete-clang2'
     "Plug 'dbakker/vim-lint'
@@ -323,7 +323,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     "Plug 'sebastianmarkow/deoplete-rust'
 
     "low contrast colorscheme
-    "To work permanently do a symlink between it's 
+    "To work permanently do a symlink between it's
     Plug 'junegunn/seoul256.vim'
 
     "Only focus on one function
@@ -337,7 +337,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'rhysd/vim-grammarous'
     Plug 'powerman/vim-plugin-ansiesc'
     Plug 'airblade/vim-gitgutter'
-    Plug 'Shougo/neoinclude.vim' 
+    Plug 'Shougo/neoinclude.vim'
     "Plug 'deoplete-plugins/libclang-python3'
     Plug 'posva/vim-vue', { 'for':'vue' }
     Plug 'pangloss/vim-javascript', { 'for':'javascript' }
@@ -360,9 +360,7 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'junegunn/fzf.vim'
 
     "python
-    Plug 'deoplete-plugins/deoplete-jedi', { 'for':'python' }
     Plug 'fisadev/vim-isort', { 'for':'python' }
-    Plug 'nvie/vim-flake8', { 'for':'python' }
 
     " latex plugin for university
     Plug 'lervag/vimtex', { 'for':'tex' }
@@ -377,13 +375,10 @@ call plug#begin('$HOME/.config/nvim/plugged')
     Plug 'scrooloose/nerdtree'
     Plug 'scrooloose/nerdcommenter'
 
-    Plug 'HerringtonDarkholme/yats.vim', { 'for':'ts' }
-    Plug 'mhartington/nvim-typescript', { 'for':'ts' }
-    Plug 'Shougo/denite.nvim', { 'for':'ts' }
-
-
     Plug 'google/vim-searchindex'
     Plug 'farmergreg/vim-lastplace'
+
+    Plug 'junegunn/goyo.vim'
 
     " unused
     "Plug 'ctrlpvim/ctrlp.vim'
@@ -525,15 +520,18 @@ let g:ale_lint_on_enter = 1
 "let g:ale_open_list = 1
 nnoremap <leader>an :ALENext<CR>
 nnoremap <leader>ap :ALEPrevious<CR>
+
 " Python ----------------- {{{
+let g:ale_fix_on_save = 1
 
-let g:jedi#completions_enabled = 1
 
-let g:ale_python_flake8_args = '-m flake8'
-let g:flake8_error_marker='EE'     " set error marker to 'EE'
-let g:flake8_warning_marker='WW'   " set warning marker to 'WW'
-let g:flake8_show_in_gutter=1  " show
-let g:flake8_show_in_file=1  " show
+let g:ale_python_pylint_options = '--load-plugins pylint_django'
+let g:ale_linters = {'python':['pylint']}
+let g:ale_fixers = {
+\   '*': [ 'remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['isort', 'yapf']
+\}
+let g:ale_linters_explicit = 1
 "}}}
 
 "Help mappings:
@@ -597,7 +595,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -650,12 +648,11 @@ map <leader>tn :+tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabnext<cr>
-map <leader>tb :tabprevious<cr> 
+map <leader>tb :tabprevious<cr>
 "}}}
 let g:python3_host_prog = '/usr/bin/python3.7'
 let g:python_host_prog = '/usr/bin/python2.7'
 
-"let g:ale_python_flake8_executable = python3_host
 "let g:vim_isort_python_version = 'python3'
 "function! AddCWDToPythonPath()
 	"execute "python3 import os, sys; sys.path.append(os.getcwd())"
