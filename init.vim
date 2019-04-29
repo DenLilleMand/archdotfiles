@@ -820,6 +820,11 @@ nmap <silent> <leader>y <Plug>(coc-type-definition)
 nmap <silent> <leader>i <Plug>(coc-implementation)
 nmap <silent> <leader>r <Plug>(coc-references)
 
+" Disable escape
+inoremap <Esc> <Nop>
+" Bind exit insert mode to jj
+inoremap jj <Esc>
+
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
