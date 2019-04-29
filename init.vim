@@ -812,8 +812,8 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
 "let g:deoplete#sources.go = ['buffer', 'go']
 "}}}
 "Limelight ----------------- {{{
-"let whitelist = ['go', 'python']
-"autocmd BufRead * if index(whitelist, &ft) > -1 | Limelight | else |  Limelight! |
+let whitelist = ['go', 'python']
+autocmd BufRead * if index(whitelist, &ft) > -1 | Limelight | else |  Limelight! |
 "}}}
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>y <Plug>(coc-type-definition)
