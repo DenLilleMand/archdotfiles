@@ -128,6 +128,7 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cdcera="cd $GOPATH/src/github.com/ceraorg/ceraordre"
 alias cera="$GOPATH/src/github.com/ceraorg/ceraordre/scripts/cera.sh"
 alias chromium="chromium & disown"
+alias rider="rider.sh & disown"
 #alias psql="pgcli"
 export FZF_BASE=/home/denlillemand/.oh-my-zsh/custom/plugins/fzf/
 
@@ -160,6 +161,8 @@ PERL5LIB="/home/denlillemand/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export P
 PERL_LOCAL_LIB_ROOT="/home/denlillemand/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/denlillemand/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/denlillemand/perl5"; export PERL_MM_OPT;
+
+export PATH="$HOME/IDE/rider/bin/:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export DJANGO_SETTINGS_MODULE="omnio_db.settings_local"
