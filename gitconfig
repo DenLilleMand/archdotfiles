@@ -5,6 +5,7 @@
 	editor = "nvim"
 	pager = less -+F
 	filemode = false
+	excludesfile = ~/.gitignore-global
 [commit]
 	verbose = true
 	template = ~/.gitmessage

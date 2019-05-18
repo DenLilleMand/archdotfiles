@@ -17,4 +17,6 @@ else
   polybar --reload uptop &
 fi
 
+xmodmap ~/.Xmodmap
+
 echo "Bar launched..."

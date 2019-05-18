@@ -522,17 +522,16 @@ nnoremap <leader>an :ALENext<CR>
 nnoremap <leader>ap :ALEPrevious<CR>
 
 " Python ----------------- {{{
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 
-
-let g:ale_python_pylint_options = '--load-plugins pylint_django'
-let g:ale_linters = {'python':['pylint']}
+"let g:ale_python_pylint_options = '--load-plugins pylint_django'
+let g:ale_linters_explicit = 1
+let g:ale_linters = {'python':['flake8']}
 let g:ale_fixers = {
 \   '*': [ 'remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['isort']
 \}
 "\   'python': ['isort', 'yapf']
-let g:ale_linters_explicit = 1
 "}}}
 
 "Help mappings:
