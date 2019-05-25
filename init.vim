@@ -1,8 +1,8 @@
 "Author info -----------------------------{{{
 "Author: DenLilleMand
 "Creation Date: 1st of january,  2015
-"Description: A lot of the most popular plugins, mainly golang focused
-"		right now.
+"Description: A lot of the most popular plugins, mainly golang focused right 
+"now.
 "License: MIT
 "}}}
 " normal options -------------- {{{
@@ -50,25 +50,10 @@ map <C-l> <C-W>l
 "  			 the line and [count]-1 more lines with the just
 " 			 deleted text.
 " }}}
-" Mappings for the "camelcase" script ----- {{{
-" https://www.vim.org/scripts/script.php?script_id=1905
-
-nmap c,w c,e
-
-runtime plugged/camelcasemotion.vim
-omap i,w i,e
-xmap i,w i,e
-
-" To avoid losing the (rarely used) , mapping (which repeats latest f, t, F or
-" T in opposite direction), we can remap it to ,,
-nnoremap ,, ,
-xnoremap ,, ,
-onoremap ,, ,
-"}}}
 " Turn all of the normal filetype settings on ------- {{{
-filetype on
-filetype indent on
-filetype plugin indent on
+"filetype on
+"filetype indent on
+"filetype plugin indent on
 "}}}
 " Basic Settings -------------------------------- {{{
 "If this was set to off, the plugins wouldnt be able to do indenting based on
@@ -243,6 +228,37 @@ let g:tex_flavor='latex'
 " sql --------------- {{{
 au BufRead /tmp/psql.edit.* set syntax=sql
 "}}}
+
+syntax off
+hi default CocUnderline    cterm=underline gui=underline
+hi default CocErrorSign    ctermfg=Red     guifg=#000000
+hi default CocWarningSign  ctermfg=Brown   guifg=#000000
+hi default CocInfoSign     ctermfg=Yellow  guifg=#000000
+hi default CocHintSign     ctermfg=Blue    guifg=#000000
+hi default CocSelectedText ctermfg=Red     guifg=#000000
+hi default CocCodeLens     ctermfg=Gray    guifg=#000000
+" #999999
+hi default link CocErrorFloat       CocErrorSign
+hi default link CocWarningFloat     CocWarningSign
+hi default link CocInfoFloat        CocInfoSign
+hi default link CocHintFloat        CocHintSign
+hi default link CocErrorHighlight   CocUnderline
+hi default link CocWarningHighlight CocUnderline
+hi default link CocInfoHighlight    CocUnderline
+hi default link CocHintHighlight    CocUnderline
+hi default link CocListMode ModeMsg
+hi default link CocListPath Comment
+hi default link CocFloating Pmenu
+
+" let syntax_list = ['python', 'go']
+" autocmd BufWrite,BufRead * if index(syntax_list, &ft) > -1 | set syntax=off | else | set syntax=on |
+autocmd BufRead,VimEnter * syntax off
+
+set shiftwidth=4
+
+" let syntax_list = ['python', 'go']
+" autocmd BufWrite,BufRead * if index(syntax_list, &ft) > -1 | set syntax=off | else | set syntax=on |
+autocmd BufRead,VimEnter * syntax off
 " Zoom / Restore window. ------------ {{{
 "function! s:ZoomToggle() abort
     "if exists('t:zoomed') && t:zoomed
@@ -382,7 +398,6 @@ call plug#begin('$HOME/.config/nvim/plugged')
 
     " unused
     "Plug 'ctrlpvim/ctrlp.vim'
-    "Plug 'altercation/vim-colors-solarized'
     "Plug 'easymotion/vim-easymotion'
     "Plug 'kshenoy/vim-signature'
     "Plug 'tell-k/vim-autopep8'
@@ -394,14 +409,11 @@ call plug#begin('$HOME/.config/nvim/plugged')
 call plug#end()
 " }}}
 "Theme settings -------------------- {{{
-syntax enable
-syntax on
-
-colo seoul256
+"colo seoul256
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let guicursor=1
 set termguicolors
-set background=dark
+"set background=dark
 "}}}
 "some neovim mappings for yanking and pasting ------------ {{{
 vnoremap <leader>y "+y
@@ -815,6 +827,7 @@ autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=0 expandtab
 "let whitelist = ['go', 'python']
 "autocmd BufRead * if index(whitelist, &ft) > -1 | Limelight | else |  Limelight! |
 "}}}
+
 nmap <silent> <leader>d <Plug>(coc-definition)
 nmap <silent> <leader>y <Plug>(coc-type-definition)
 nmap <silent> <leader>i <Plug>(coc-implementation)
@@ -853,6 +866,30 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+autocmd FileType gitcommit setlocal spell
+nnoremap <leader>k :cal SpellSuggest()<CR>
+function! SpellSuggest()
+  let s = substitute(system("echo ".expand("<cword>")." | aspell -a -W2 | grep '^&'"), "^.*:\\s\\(.*\\)\\n", "\\1,", "")
+  if s != ""
+    let slength = strlen(s)
+    let end = 0
+    let i = 0
+    while end != slength
+      let i = i + 1
+      let w = matchstr(s, "^\\%(.\\{-}\\zs[^ ,]\\+\\ze,\\)\\{".i."}")
+      echon "(".i.")".w." "
+      let end = matchend(s, w.",")
+    endwhile
+    echo ""
+    let c = input("Replace with: ")
+    if c =~ "^[1-9]\\d*$" && c > 0 && c <= i
+      execute "normal! ciw".matchstr(s, "^\\%(.\\{-}\\zs[^ ,]\\+\\ze,\\)\\{".c."}")
+    endif
+  else
+    echo "No suggestions"
+  endif
+endfunction
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 vmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -899,3 +936,4 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+

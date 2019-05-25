@@ -167,6 +167,7 @@ PERL_MB_OPT="--install_base \"/home/denlillemand/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/denlillemand/perl5"; export PERL_MM_OPT;
 
 export PATH="$HOME/IDE/rider/bin/:$PATH"
+export PATH="$HOME/IDE/community/bin/:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export DJANGO_SETTINGS_MODULE="omnio_db.settings_local"
