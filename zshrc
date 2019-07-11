@@ -109,7 +109,7 @@ export PSQL_EDITOR=/usr/bin/vim
 #my .neofetch file should be found in github.com/denlillemand/ubuntu_configurations/neofetch/neofetch
 #neofetch --config /home/denlillemand/.neofetch --ascii_distro Arch Linu
 if [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; then
-#neofetch --ascii_distro Arch Linu  #Doesn't work unfortunately, tmux doesn't understand when its scripted. :( 
+# neofetch --ascii_distro Arch Linu  #Doesn't work unfortunately, tmux doesn't understand when its scripted. :( 
     echo ""
 else
     neofetch --config /home/denlillemand/.config/neofetch/neofetch.conf 
@@ -125,10 +125,10 @@ fi
 alias zshconfig="nvim ~/.zshrc"
 alias ls="exa"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias cdcera="cd $GOPATH/src/github.com/ceraorg/ceraordre"
-alias cera="$GOPATH/src/github.com/ceraorg/ceraordre/scripts/cera.sh"
+alias cat="bat --pager LESS"
 alias chromium="chromium & disown"
 alias rider="rider.sh & disown"
+alias curl="httpie"
 #alias psql="pgcli"
 export FZF_BASE=/home/denlillemand/.oh-my-zsh/custom/plugins/fzf/
 
