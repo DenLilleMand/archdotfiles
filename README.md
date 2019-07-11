@@ -42,8 +42,12 @@ Remember to add the .pgpass file and .vimrcpg
 
 ## Extra installed programs
 
-- exa (modernised ls, written in Rust i think)
+
+- exa (modernised ls, written in Rust(Colors + Git))
+- httpie
 - pgcli
+- bat (Instead of cat)
+- mdp (for presentations, https://github.com/visit1985/mdp)
 - zsh
 - polybar
 - WM: i3-gaps (in contrary to i3)
