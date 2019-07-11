@@ -8,3 +8,4 @@ tags
 .nvimrc
 pylintrc
 .huskyrc
+*.pem
