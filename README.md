@@ -87,3 +87,10 @@ My paritioning scheme is GPT because i read that it was the new thing
 
 Next time i format and install a linux distro again, i really want to use a
 sort of encryption of the harddesk, just to check it out.
+
+## sudo w/ environments like pager/editor
+edit the /etc/environment e.g. add EDITOR=vim
+Apparently 'sudo' is in a grey area where it does not load the users
+environment, and it doesn't load the root users environment either. Maybe
+it is a performance thing, not sure if there is a way of making it load
+the root users config

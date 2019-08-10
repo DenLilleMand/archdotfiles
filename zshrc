@@ -128,7 +128,7 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias cat="bat --pager LESS"
 alias chromium="chromium & disown"
 alias rider="rider.sh & disown"
-alias curl="httpie"
+#alias curl="httpie"
 #alias psql="pgcli"
 export FZF_BASE=/home/denlillemand/.oh-my-zsh/custom/plugins/fzf/
 
@@ -171,5 +171,7 @@ export PATH="$HOME/IDE/community/bin/:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export DJANGO_SETTINGS_MODULE="omnio_db.settings_local"
+export JAVA_HOME="/usr/lib/jvm/java-12-openjdk"
+export FLAMEGRAPH_DIR="/home/denlillemand/FlameGraph"
 export WORKON_HOME=~/envs
 source $HOME/.cargo/env
