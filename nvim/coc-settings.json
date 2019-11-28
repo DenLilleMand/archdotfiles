@@ -1,30 +1,48 @@
 {
     "languageserver": {
-	"golang": {
-	    "command": "go-langserver",
-	    "filetypes": ["go"],
-	    "initializationOptions": {
-		"gocodeCompletionEnabled": true,
-		"diagnosticsEnabled": true,
-		"lintTool": "golint"
-	    }
-	},
-	"dockerfile": {
-	    "command": "docker-langserver",
-	    "filetypes": ["dockerfile"],
-	    "args": ["--stdio"]
-	},
-	"efm": {
-	    "command": "efm-langserver",
-	    "args": [],
-	    "filetypes": ["vim", "markdown"]
-	},
-	"bash": {
-	    "command": "bash-language-server",
-	    "args": ["start"],
-	    "filetypes": ["sh"],
-	    "ignoredRootPaths": ["~"]
-	}
+        "golang": {
+            "command": "gopls",
+            "args": ["serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
+            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+            "filetypes": ["go"]
+        },
+        "dockerfile": {
+            "command": "docker-langserver",
+            "filetypes": ["dockerfile"],
+            "args": ["--stdio"]
+        },
+        "efm": {
+            "command": "efm-langserver",
+            "args": [],
+            "filetypes": ["vim", "markdown"]
+        },
+        "bash": {
+            "command": "bash-language-server",
+            "args": ["start"],
+            "filetypes": ["sh"],
+            "ignoredRootPaths": ["~"]
+        },
+        "haskell": {
+            "command": "hie-wrapper",
+            "rootPatterns": [
+                ".stack.yaml",
+                "cabal.config",
+                "package.yaml"
+            ],
+            "filetypes": [
+                "hs",
+                "lhs",
+                "haskell"
+            ],
+            "initializationOptions": {
+                "languageServerHaskell": {
+                    "hlintOn": true
+                }
+            }
+        }
     },
-    "python.jediEnabled": false
+    "python.jediEnabled": false,
+    "erlang_ls.erlang_ls_path": "/home/denlillemand/erlang_ls/",
+    "erlang_ls.port": 64400,
+    "erlang_ls.trace.server": "verbose"
 }

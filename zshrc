@@ -157,6 +157,7 @@ echo "use ff, errt, :, fl, i, v, c, fum, fun, for, inf, terf, terr \n"
 echo "use ctrl+b, ctrl+w"
 
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config-omnio.yml
+alias hask="stack exec ghci -- -W"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -169,9 +170,17 @@ PERL_MM_OPT="INSTALL_BASE=/home/denlillemand/perl5"; export PERL_MM_OPT;
 export PATH="$HOME/IDE/rider/bin/:$PATH"
 export PATH="$HOME/IDE/community/bin/:$PATH"
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.dotnet/tools:$PATH"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DJANGO_SETTINGS_MODULE="omnio_db.settings_local"
 export JAVA_HOME="/usr/lib/jvm/java-12-openjdk"
 export FLAMEGRAPH_DIR="/home/denlillemand/FlameGraph"
 export WORKON_HOME=~/envs
 source $HOME/.cargo/env
+
+# Fix for
+# https://vi.stackexchange.com/questions/7644/use-vim-with-virtualenv/7654#7654
+# some virtualenv being set but inactive
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
